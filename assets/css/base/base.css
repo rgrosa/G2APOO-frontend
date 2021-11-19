@@ -1,0 +1,35 @@
+@import url(_reset.css);
+@import url(_variaveis.css);
+
+html {
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+footer {
+	background-color: darkgray;
+	text-align: center;
+	padding: 1rem;
+	margin-top: auto;
+}
+
+.selectOption {
+	width: 10%;
+	padding: 5px 10px;
+	margin-bottom: 3px;
+	border: 1px solid darkgray;
+	border-radius: 4px;
+	background-color: lightgray;
+ }
+
+ .logo{
+	width: 10%;
+	height: 10%;
+
+ }

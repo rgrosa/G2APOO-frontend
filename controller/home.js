@@ -1,4 +1,4 @@
-import { propertyService } from '../../service/property_service.js';
+import { propertyService } from '../service/property_service.js';
 
 const criarElemento = (e) => {
 
@@ -15,7 +15,7 @@ const criarElemento = (e) => {
   const conteudo = `
             <article class="col" id=${e.propertyId}>
                 <div class="card">
-                    <img class="img-thumbnail" src="data:image/png;base64,${e.picture1x64}"
+                    <img class="img-thumbnail" src="${e.picture1x64}"
                         class="card-img-top" style="height: 12rem; object-fit: cover; object-position: center;" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">${e.propertyAddress}</h5>
@@ -42,7 +42,7 @@ const criarElemento = (e) => {
                       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                           <div class="carousel-item active">
-                            <img class="d-block w-100" src=data:image/png;base64,${e.picture1x64}>
+                            <img class="d-block w-100" src=${e.picture1x64}>
                           </div>
                           ${divImg2}
                           ${divImg3}
@@ -87,16 +87,53 @@ const criarElemento = (e) => {
                   </div>
                 </div>
             </article>
-            
                   `
   div.innerHTML = conteudo
   return div
 }
+const elementoHeader1 = () => {
+const conteudo = ` <li class="nav-item">
+<a class="nav-link" href="./dados/profile.html"><b>Perfil</b></a>
+</li>
+<li class="nav-item px-3">
+<a class="nav-link" href="../index.html" onclick="sessionStorage.clear()"><small>Sair</small></a>
+</li>`
+headerProperty.innerHTML = conteudo;
+}
+
+const elementoHeader2= () => {
+const conteudo = ` <li class="nav-item">
+<a class="nav-link" href="./dados/profile.html">Perfil</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="./owner/register/property.html">Cadastrar propriedade</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="./owner/register/user.html">Cadastrar Usuário</a>
+</li>
+<li class="nav-item px-3">
+<a class="nav-link" href="../index.html" onclick="sessionStorage.clear()"><small>Sair</small></a>
+</li>`
+headerProperty.innerHTML = conteudo;
+}
 
 const section = document.querySelector('[data-main-property]');
+const headerProperty = document.querySelector('[header-property]');
+
+const render2= async() =>{
+  const userType = sessionStorage.getItem("userTypeId");
+
+  if(userType == 2){
+    headerProperty.appendChild(elementoHeader2());
+  }else{
+    headerProperty.appendChild(elementoHeader1());
+  }
+
+}
 
 const render = async () => {
   const token = sessionStorage.getItem("jwtToken");
+
   const response = await propertyService.getProperties(token,-1)
 
   if(response.additionalInfo.length != 0){
@@ -110,7 +147,7 @@ const render = async () => {
 }
 
 function makeDivPic(pictureBase64x){
-  const src = "src='data:image/png;base64,"+pictureBase64x+"'";
+  const src = "src='"+pictureBase64x+"'";
   return '<div class="carousel-item"> <img class="d-block w-100" '+src+'> </div>'; 
 }
 
@@ -140,4 +177,6 @@ document.getElementById('selectOption').onchange = async () => {
     section.textContent = "Sem dado";
   }
 };
+
+render2();
 render();

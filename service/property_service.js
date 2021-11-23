@@ -20,6 +20,33 @@ const getProperties = (token, list) => {
     })
 }
 
+const postProperty = async (token, jsonBody) => {
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer "+token);
+  myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(jsonBody),
+    redirect: 'follow'
+  };
+
+fetch("http://localhost:8080/service/property", requestOptions)
+    .then(resposta => {
+      if (resposta.ok) {
+        return resposta;
+      }
+      return resposta;
+    })
+    .then(json => {
+      return json
+    });
+}
+
+
 export const propertyService = {
-  getProperties
+  getProperties,
+  postProperty
 }

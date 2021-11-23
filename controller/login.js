@@ -26,14 +26,14 @@ formulario.addEventListener('submit', async (evento) => {
     const userId = token.additionalInfo.userId;
     sessionStorage.setItem('jwtToken', token.additionalInfo.jwtToken);
     sessionStorage.setItem('userTypeId', userTypeId);
+    sessionStorage.setItem('userId', userId);
 
-    if (userTypeId == userTypeIdUser) {
-      window.location.href = `views/user/home.html?id=${userId}`
-    }else{
-      window.location.href = `views/owner/home.htmll?id=${userId}`
-    }
+
+      window.location.href = `views/home.html`
+
   }
   catch (erro) {
-    console.log(erro)
+    console.log(erro);
+    window.alert("Login Inválido");
   }
 })

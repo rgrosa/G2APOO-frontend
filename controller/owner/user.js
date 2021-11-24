@@ -8,7 +8,7 @@ document.getElementById('saveBtn').onclick = async () => {
     const response = await profileService.postProfile(token, jsonBody);
 
     if(response.statusCode == 200){
-        window.location.href = `../../index.html`;
+        window.location.reload(true);
     }else if(response.statusCode == 200){
         window.alert("Senha informada não é está correta!");
     }

@@ -1,7 +1,11 @@
 import { propertyService } from '../service/property_service.js';
 
+const userType = sessionStorage.getItem("userTypeId");
+const token = sessionStorage.getItem("jwtToken");
+
 const criarElemento = (e) => {
 
+  const editBtn =  (userType == 2?makeEditBtn(e.propertyId):"");
   const div = document.createElement('div')
   const financed = (e.financed?"Sim":"Não");
   const ownerNamed = (e.ownerNamed?"Sim":"Não");
@@ -82,6 +86,9 @@ const criarElemento = (e) => {
                         <textarea id="propose" style="border-width:1px;border-color: lightgray;border-style: solid;" rows="3" cols="40"></textarea>
                         <button type="button" style="margin-top: 2px;" class="btn btn-primary">Enviar</button>
                       </div>
+                      <div>
+                      ${editBtn}
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -121,19 +128,14 @@ const section = document.querySelector('[data-main-property]');
 const headerProperty = document.querySelector('[header-property]');
 
 const render2= async() =>{
-  const userType = sessionStorage.getItem("userTypeId");
-
   if(userType == 2){
     headerProperty.appendChild(elementoHeader2());
   }else{
     headerProperty.appendChild(elementoHeader1());
   }
-
 }
 
 const render = async () => {
-  const token = sessionStorage.getItem("jwtToken");
-
   const response = await propertyService.getProperties(token,-1)
 
   if(response.additionalInfo.length != 0){
@@ -149,6 +151,10 @@ const render = async () => {
 function makeDivPic(pictureBase64x){
   const src = "src='"+pictureBase64x+"'";
   return '<div class="carousel-item"> <img class="d-block w-100" '+src+'> </div>'; 
+}
+
+function makeEditBtn(propertyId){
+  return '<hr><a href="./owner/register/property.html?id='+propertyId+'"><button class="btn btn-primary" type="button">Editar a propriedade</button></a>';
 }
 
 function caseStatus(status){

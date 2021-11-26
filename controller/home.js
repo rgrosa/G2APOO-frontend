@@ -10,6 +10,7 @@ const criarElemento = (e) => {
   const financed = (e.financed?"Sim":"Não");
   const ownerNamed = (e.ownerNamed?"Sim":"Não");
   const negotiable = (e.negotiable?"Sim":"Não");
+  const price = (e.lastPropertyPrice != null? makePromo(e.propertyPrice, e.lastPropertyPrice):'R$'+e.propertyPrice);
   const status = caseStatus(e.propertyStatusId);
   const divImg2= (e.picture2x64?makeDivPic(e.picture2x64):"\n");
   const divImg3= (e.picture3x64?makeDivPic(e.picture3x64):"\n");
@@ -31,7 +32,6 @@ const criarElemento = (e) => {
                           </div>
                         </li>
                     </ul>
-
                   </div>
                   <div class="modal fade" id="modal${e.propertyId}" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -70,7 +70,7 @@ const criarElemento = (e) => {
                       </div>
                       <div>
                       <ul class="list-group">
-                        <li class="list-group-item"><b>Preço: </b>${e.propertyPrice} R$</li>
+                        <li class="list-group-item"><b>Preço:</b>${price}</li>
                         <li class="list-group-item"><b>Estado da propriedade: </b>${status}</li>
                         <li class="list-group-item"><b>Nome do Responsavel: </b>${e.propertyOwnerName}</li>
                         <li class="list-group-item"><b>Email do Responsavel: </b>${e.propertyOwnerEmail}</li>
@@ -100,7 +100,7 @@ const criarElemento = (e) => {
 }
 const elementoHeader1 = () => {
 const conteudo = ` <li class="nav-item">
-<a class="nav-link" href="./dados/profile.html"><b>Perfil</b></a>
+<a class="nav-link" href="./dados/profile.html">Perfil</a>
 </li>
 <li class="nav-item px-3">
 <a class="nav-link" href="../index.html" onclick="sessionStorage.clear()"><small>Sair</small></a>
@@ -129,9 +129,9 @@ const headerProperty = document.querySelector('[header-property]');
 
 const render2= async() =>{
   if(userType == 2){
-    headerProperty.appendChild(elementoHeader2());
+     elementoHeader2();
   }else{
-    headerProperty.appendChild(elementoHeader1());
+     elementoHeader1();
   }
 }
 
@@ -159,13 +159,17 @@ function makeEditBtn(propertyId){
 
 function caseStatus(status){
   switch (status) {
-    case 0:
-      return "Vendido";
     case 1:
-      return "Alugado";
+      return "Vendido";
     case 2:
+      return "Alugado";
+    case 3:
       return "Livre";
   }   
+}
+
+function makePromo(promoPrice, price){
+  return "<x style='text-decoration: line-through;'>R$"+price+"</x> R$"+promoPrice;
 }
 
 document.getElementById('selectOption').onchange = async () => {

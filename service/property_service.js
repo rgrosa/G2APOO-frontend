@@ -45,8 +45,28 @@ fetch("http://localhost:8080/service/property", requestOptions)
     });
 }
 
+const getPropertyById = (token, id) => {
+
+  return fetch(`http://localhost:8080/service/property?propertyIdList=1,2,3&propertyId=`+id,{
+    method: 'get', 
+    headers: new Headers({
+      'Authorization': 'Bearer '+token
+    })
+  })
+    .then(resposta => {
+      if (resposta.ok) {
+        return resposta.json()
+      }
+      throw new Error('Não foi possível listar as propriedades')
+    })
+    .then(json => {
+      return json
+    })
+}
+
 
 export const propertyService = {
   getProperties,
-  postProperty
+  postProperty,
+  getPropertyById
 }

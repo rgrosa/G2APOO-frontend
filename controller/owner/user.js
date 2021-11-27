@@ -1,6 +1,30 @@
 import { profileService } from '../../service/profile_service.js';
 
 
+document.getElementById('olho').addEventListener('mousedown', function () {
+    document.getElementById('formPassword').type = 'text';
+  });
+  
+  document.getElementById('olho').addEventListener('mouseup', function () {
+    document.getElementById('formPassword').type = 'password';
+  });
+  
+  document.getElementById('olho').addEventListener('mousemove', function () {
+    document.getElementById('formPassword').type = 'password';
+  });
+  
+  document.getElementById('olho2').addEventListener('mousedown', function () {
+    document.getElementById('formConfirmPassword').type = 'text';
+  });
+  
+  document.getElementById('olho2').addEventListener('mouseup', function () {
+    document.getElementById('formConfirmPassword').type = 'password';
+  });
+  
+  document.getElementById('olho2').addEventListener('mousemove', function () {
+    document.getElementById('formConfirmPassword').type = 'password';
+  });
+
 document.getElementById('saveBtn').onclick = async () => {
     
     const token = sessionStorage.getItem("jwtToken");
@@ -34,6 +58,12 @@ document.getElementById('saveBtn').onclick = async () => {
     if(password == ""){
         errorName = errorName + "- Error falta senha.\n";
     }
+
+    let email = document.getElementById("formEmailContact").value;
+    if(email == ""){
+        errorName = errorName + "- Error falta email.\n";
+    }
+
     let confirmPassword = document.getElementById("formConfirmPassword").value;
     if(confirmPassword == ""){
         errorName = errorName + "- Error falta confirmação de senha.\n";
@@ -55,7 +85,8 @@ document.getElementById('saveBtn').onclick = async () => {
         username: username,
         userRealName: userRealName,
         userPassword: password,
-        userTypeId: status
+        userTypeId: status,
+        contactEmail: email
     };
 
     return jsonObject;

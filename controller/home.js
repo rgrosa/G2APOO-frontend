@@ -10,7 +10,7 @@ const criarElemento = (e) => {
   const financed = (e.financed?"Sim":"Não");
   const ownerNamed = (e.ownerNamed?"Sim":"Não");
   const negotiable = (e.negotiable?"Sim":"Não");
-  const price = (e.lastPropertyPrice != null? makePromo(e.propertyPrice, e.lastPropertyPrice):'R$'+e.propertyPrice);
+  const price = ((e.lastPropertyPrice != null) && (e.propertyPrice < e.lastPropertyPrice) ? makePromo(e.propertyPrice, e.lastPropertyPrice):'R$'+e.propertyPrice);
   const status = caseStatus(e.propertyStatusId);
   const divImg2= (e.picture2x64?makeDivPic(e.picture2x64):"\n");
   const divImg3= (e.picture3x64?makeDivPic(e.picture3x64):"\n");
@@ -43,9 +43,9 @@ const criarElemento = (e) => {
                         </button>
                       </div>
                       <div class="modal-body">
-                      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                          <div class="carousel-item active">
+                      <div>
+                        <div>
+                          <div class="gallery-img">
                             <img class="d-block w-100" src=${e.picture1x64}>
                           </div>
                           ${divImg2}
@@ -53,14 +53,6 @@ const criarElemento = (e) => {
                           ${divImg4}
                           ${divImg5}
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only"></span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only"></span>
-                        </a>
                       </div>
                       <div class="modal-content">
                       <div class="modal-header">
@@ -136,7 +128,11 @@ const render2= async() =>{
 }
 
 const render = async () => {
-  const response = await propertyService.getProperties(token,-1)
+
+  let inputValueMin = document.getElementById('inputValueMin').value;
+  let inputValueMax = document.getElementById('inputValueMax').value;
+  $('#content-value').empty();
+  const response = await propertyService.getProperties(token, document.getElementById('selectOption').value, inputValueMin, inputValueMax)
 
   if(response.additionalInfo.length != 0){
     response.additionalInfo.forEach( e =>{
@@ -150,7 +146,7 @@ const render = async () => {
 
 function makeDivPic(pictureBase64x){
   const src = "src='"+pictureBase64x+"'";
-  return '<div class="carousel-item"> <img class="d-block w-100" '+src+'> </div>'; 
+  return '<div class="gallery-img"> <img class="d-block w-100" '+src+'> </div>'; 
 }
 
 function makeEditBtn(propertyId){
@@ -172,21 +168,8 @@ function makePromo(promoPrice, price){
   return "<x style='text-decoration: line-through;'>R$"+price+"</x> R$"+promoPrice;
 }
 
-document.getElementById('selectOption').onchange = async () => {
-  $('#content-value').empty();
 
-  const token = sessionStorage.getItem("jwtToken");
-  const response = await propertyService.getProperties(token, document.getElementById('selectOption').value);
-
-  if(response.additionalInfo.length != 0){
-    response.additionalInfo.forEach( e =>{
-      section.appendChild(criarElemento(e));
-    }
-    )
-  }else {
-    section.textContent = "Sem dado";
-  }
+document.getElementById('searchBtn').onclick = async () => {
+  render();
 };
-
 render2();
-render();

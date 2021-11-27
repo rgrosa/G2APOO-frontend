@@ -29,12 +29,23 @@
 
   <main class="container-fluid my-3">
     <h2 class="h2 text-muted my-3">Propriedades disponiveis:</h2>
+    <div>
+    <label class="form-label" for="selectOption">Tipos disponiveis:</label>
     <select id="selectOption" class="selectOption">
       <option value="-1" selected>Todos</option>
       <option value="1">Vendido</option>
       <option value="2">Alugado</option>
       <option value="3">Livre</option>
     </select>
+    </div>
+    <label class="form-label" for="inputValueMin">Preço de:</label>
+    <input type="text" class="form-control-sm " maxlength="10"  placeholder="100000" id="inputValueMin">
+
+    <label class="form-label" for="inputValueMax">Preço até:</label>
+    <input type="text" class="form-control-sm " maxlength="10" placeholder="1000000" id="inputValueMax">
+    <br>
+    <button type="submit" class="btn btn-primary mb-2" id="searchBtn">Pesquisar</button>
+    <hr>
     <section id="content-value" class="row row-cols-1 row-cols-md-5 g-4" data-main-property></section>
     
   </main>

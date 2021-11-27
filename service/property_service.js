@@ -1,9 +1,18 @@
-const getProperties = (token, list) => {
+const getProperties = (token, list, inputValueMin, inputValueMax) => {
   if(list == -1){
     list = '1,2,3';
   }
+  let url = `http://localhost:8080/service/property?propertyIdList=`+list;
 
-  return fetch(`http://localhost:8080/service/property?propertyIdList=`+list,{
+  if(inputValueMin != null || inputValueMin != "" ){
+    url = url+ '&priceMin='+inputValueMin;
+  }
+
+  if(inputValueMax != null || inputValueMax != "" ){
+    url = url+ '&priceMax='+inputValueMax;
+  }
+
+  return fetch(url,{
     method: 'get', 
     headers: new Headers({
       'Authorization': 'Bearer '+token

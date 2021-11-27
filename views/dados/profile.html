@@ -42,31 +42,38 @@
         <div class="row">
           <p class="text-muted my-3">Dados de usuário</p>
           <hr />
-          <div class="col-md my-3">
-            <label class="form-label" for="usuario">* Usuário:</label>
-            <input type="text" class="form-control-sm form-control" id="idUsuario">
-          </div>
-          <div id="passwordHelpBlock" class="form-text">
-            Altere seu usario para login.
-          </div>
-          <div class="col-md my-3">
-            <label class="form-label" for="usuario">* Seu Nome Real:</label>
-            <input type="text" class="form-control-sm form-control" id="idRealName">
-          </div>
-          <div id="passwordHelpBlock" class="form-text">
-            Altere o seu nome.
-          </div>
+            <div class="col-md my-3">
+              <label class="form-label" for="usuario">* Usuário:</label>
+              <input type="text" class="form-control-sm form-control" maxlength="16" id="idUsuario">
+            </div>
+            <div class="col-md my-3">
+              <label class="form-label" for="usuario">* Seu Nome Real:</label>
+              <input type="text" class="form-control-sm form-control"  maxlength="32" id="idRealName">
+            </div>
+            <div class="col-md my-3">
+              <label class="form-label" for="emailContact">* Email contato:</label>
+              <input type="email" class="form-control-sm form-control" maxlength="64" id="emailContact">
+            </div>
+            <div class="row">
           <div class="col-md my-3">
             <label class="form-label" for="senha">* Senha:</label>
+            <svg xmlns="http://www.w3.org/2000/svg" id="olho" width="16" height="16" fill="currentColor"
+            class="bi bi-eye-fill" viewBox="0 0 16 16">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+            <path
+                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+            </svg>
             <div class="d-flex align-items-center">
               <input type="password" class="form-control-sm form-control mx-2" id="senha">
             </div>
-            <div id="passwordHelpBlock" class="form-text">
-              Altere sua senha.
-            </div>
           </div>
           <div class="col-md my-3">
-            <label class="form-label" for="senha">* Senha atual:</label>
+            <label class="form-label" for="senha">* Senha atual:</label>                            <svg xmlns="http://www.w3.org/2000/svg" id="olho2" width="16" height="16" fill="currentColor"
+            class="bi bi-eye-fill" viewBox="0 0 16 16">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+            <path
+                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+            </svg>
             <div class="d-flex align-items-center">
               <input type="password" class="form-control-sm form-control mx-2" id="currentSenha">
             </div>
@@ -74,6 +81,7 @@
               Coloque sua senha atual para salvar.
             </div>
           </div>
+        </div>
         </div>
       </div>
       <button type="button" class="btn btn-primary my-3" id="updateBtn">Atualizar</button>

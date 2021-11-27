@@ -13,6 +13,7 @@ let pic5G;
 const render = async () => {
     
     if(userType == 2 && url != undefined){
+        const noImgSrc = "../../../assets/img/no-img.png"
         let id = parseInt(url.split("=")[1]);
         const response = await propertyService.getPropertyById(token, id)
         const json = response.additionalInfo;
@@ -32,11 +33,11 @@ const render = async () => {
         pic4G = json.picture4x64;
         pic5G = json.picture5x64;
 
-        document.getElementById("img1").src = pic1G != null?pic1G:"";
-        document.getElementById('img2').src = pic2G != null?pic2G:"";
-        document.getElementById('img3').src = pic3G != null?pic3G:"";
-        document.getElementById('img4').src = pic4G != null?pic4G:"";
-        document.getElementById('img5').src = pic5G != null?pic5G:"";
+        document.getElementById("img1").src = pic1G != null?pic1G: noImgSrc;
+        document.getElementById('img2').src = pic2G != null?pic2G: noImgSrc;
+        document.getElementById('img3').src = pic3G != null?pic3G: noImgSrc;
+        document.getElementById('img4').src = pic4G != null?pic4G: noImgSrc;
+        document.getElementById('img5').src = pic5G != null?pic5G: noImgSrc;
     }
 }
 

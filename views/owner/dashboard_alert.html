@@ -6,47 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../../assets/css/base/base.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="icon" href="../assets/img/logo.jpeg">
+  <link rel="icon" href="../../assets/img/logo.jpeg">
   <title>CasaQuistão - Home</title>
 </head>
 
 <body>
-  <header class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid d-flex justify-content-between">
-      <a class="navbar-brand" href="./home.html"><img class="logo" src="../assets/img/logo.jpeg"></a>
-      <div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0" header-property>
-          </ul>
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid d-flex justify-content-between">
+          <a class="navbar-brand" href="./../home.html" ><img class="logo" src="../../assets/img/logo.jpeg"></a>
+          <div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item px-3">
+                  <a class="nav-link" href="../../index.html" onclick="sessionStorage.clear()">Sair</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </header>
+      </header>
 
   <main class="container-fluid my-3">
-    <h2 class="h2 text-muted my-3">Propriedades disponiveis:</h2>
+    <h2 class="h2 text-muted my-3">Dashboard de alertas:</h2>
     <div>
     <label class="form-label" for="selectOption">Tipos disponiveis:</label>
-    <select id="selectOption" class="selectOption">
+    <select id="selectOption" class="selectOption2">
       <option value="-1" selected>Todos</option>
-      <option value="1">Vendido</option>
-      <option value="2">Alugado</option>
-      <option value="3">Livre</option>
+      <option value="1">Solicitação de propriedade</option>
+      <option value="2">Solicitação de usuário</option>
+      <option value="3">Dias sem atualização</option>
     </select>
     </div>
-    <label class="form-label" for="inputValueMin">Preço de:</label>
-    <input type="text" class="form-control-sm " maxlength="10"  placeholder="100000" id="inputValueMin">
-
-    <label class="form-label" for="inputValueMax">Preço até:</label>
-    <input type="text" class="form-control-sm " maxlength="10" placeholder="1000000" id="inputValueMax">
     <br>
     <button type="submit" class="btn btn-primary mb-2" id="searchBtn">Pesquisar</button>
     <hr>
-    <section id="content-value" class="row row-cols-1 row-cols-md-5 g-4" data-main-property></section>
+    <section id="content-value" class="" data-main-property></section>
     
   </main>
 
@@ -61,15 +59,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <script type="module" src="../controller/home.js"></script>
-  <script> 
-    function sendAlert(value){
-      let message = prompt("Por favor faça a sua proposta:", "Olá estou interessado!");
-      if (message != null) {
+  <script type="module" src="../../controller/owner/dashboard_alert.js"></script>
+  <script>
+    function apagarAlerta(value){
+ 
+      if (confirm("Deseja esconder esse alerta?")) {
         const makeJson ={
-          propertyId: value,
-          message: message,
-          alertType: 1
+          alertId: value,
         };
         makeRequest(makeJson);
       }
@@ -88,21 +84,22 @@
       redirect: 'follow'
     };
 
-  fetch("http://localhost:8080/service/alert", requestOptions)
+  fetch("http://localhost:8080/service/alert/hide", requestOptions)
       .then(resposta => {
         if (resposta.ok) {
-          window.alert("Proposta enviada com sucesso");
+          window.alert("Alerta omitido");
+          document.getElementById("searchBtn").click();
         }else{
           window.alert("Error");
         }
-        
       })
       .then(json => {
         return json
       });
   }
-    
-    </script>
+
+  </script>
+
 </body>
 </html>
 

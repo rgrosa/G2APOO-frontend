@@ -73,10 +73,8 @@ const criarElemento = (e) => {
                       </ul>
                       </div>
                       <div class="modal-body">
-                      <h4>Solicitar Proposta:</h4>
                       <div>
-                        <textarea id="propose" style="border-width:1px;border-color: lightgray;border-style: solid;" rows="3" cols="40"></textarea>
-                        <button type="button" style="margin-top: 2px;" class="btn btn-primary">Enviar</button>
+                        <button type="button" style="margin-top: 2px;" id="btn-alert" onclick="sendAlert(${e.propertyId})" class="btn btn-primary">Solicitar Proposta</button>
                       </div>
                       <div>
                       ${editBtn}
@@ -95,7 +93,7 @@ const conteudo = ` <li class="nav-item">
 <a class="nav-link" href="./dados/profile.html">Perfil</a>
 </li>
 <li class="nav-item px-3">
-<a class="nav-link" href="../index.html" onclick="sessionStorage.clear()"><small>Sair</small></a>
+<a class="nav-link" href="../index.html" onclick="sessionStorage.clear()">Sair</a>
 </li>`
 headerProperty.innerHTML = conteudo;
 }
@@ -105,13 +103,16 @@ const conteudo = ` <li class="nav-item">
 <a class="nav-link" href="./dados/profile.html">Perfil</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="./owner/register/property.html">Cadastrar propriedade</a>
+<a class="nav-link" href="./owner/dashboard_alert.html">Dashboard de Alertas</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="./owner/register/property.html">Cadastrar Propriedade</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" href="./owner/register/user.html">Cadastrar Usuário</a>
 </li>
 <li class="nav-item px-3">
-<a class="nav-link" href="../index.html" onclick="sessionStorage.clear()"><small>Sair</small></a>
+<a class="nav-link" href="../index.html" onclick="sessionStorage.clear()">Sair</a>
 </li>`
 headerProperty.innerHTML = conteudo;
 }
@@ -167,7 +168,6 @@ function caseStatus(status){
 function makePromo(promoPrice, price){
   return "<x style='text-decoration: line-through;'>R$"+price+"</x> R$"+promoPrice;
 }
-
 
 document.getElementById('searchBtn').onclick = async () => {
   render();

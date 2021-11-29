@@ -1,5 +1,37 @@
 import { profileService } from '../../service/profile_service.js';
+const userType = sessionStorage.getItem("userTypeId");
 
+const section = document.querySelector('[data-main-property]');
+
+const render = async () => {
+console.log(userType);
+  if(userType == 1){
+    section.innerHTML = ` <div class="row">  
+    <div class="col-md my-3">
+        <div class="form-group">
+            <label for="formStatus">Status:</label>
+            <select class="form-control" id="formStatus">
+                <option value="1">Usuário</option>
+            </select>
+        </div>
+    </div>
+  </div>`
+  }else if(userType == 2){
+    section.innerHTML = ` <div class="row">  
+    <div class="col-md my-3">
+        <div class="form-group">
+            <label for="formStatus">Status:</label>
+            <select class="form-control" id="formStatus">
+                <option value="1">Usuário</option>
+                <option value="2">Dono</option>
+            </select>
+        </div>
+    </div>
+  </div>`
+
+  }
+
+}
 
 document.getElementById('olho').addEventListener('mousedown', function () {
     document.getElementById('formPassword').type = 'text';

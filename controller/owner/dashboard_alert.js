@@ -26,9 +26,30 @@ const criarElemento1 = (e) => {
     return div
   }
 
-  const criarElemento3 = (e) => {
+  const criarElemento2 = (e) => {
     const div = document.createElement('div')
     const email =  e.emailAddress != null? makeEmailTag(e.emailAddress):"";
+    const formatDate = moment(new Date(e.lastUpdate)).format('DD/MM/YY HH:mm:ss');
+    const conteudo = `
+              <article class="col" id=${e.alertId}>
+              <div class="card">
+              <div class="card-header bg-warning">
+              <b>${e.alertName} </b>
+              </div>
+              <div class="card-body" style="border-style:solid;border-width:1px">
+                <h5 class="card-title">Mensagem: ${e.alertMessage} </h5>
+                <p class="card-text">Usuário ${e.userRealName} realizou a solicitação em ${formatDate} ${email}</p>
+                <button type="button" onClick="apagarAlerta(${e.alertId})" class="btn btn-warning">Clique aqui para ignorar a solicitação</button><button style="margin-left: 5px;" type="button" onClick="aprovarUsuario(${e.alertId}, ${e.alertMessage})" class="btn btn-warning">Clique aqui para aprovar o usuário</button>
+              </div>
+            </div>
+              </article>
+                    `
+    div.innerHTML = conteudo
+    return div
+  }
+
+  const criarElemento3 = (e) => {
+    const div = document.createElement('div')
     const formatDate = moment(new Date(e.lastUpdate)).format('DD/MM/YY HH:mm:ss');
     const conteudo = `
               <article class="col" id=${e.alertId}>
@@ -58,6 +79,8 @@ const criarElemento1 = (e) => {
             section.appendChild(criarElemento1(e));
           }else if(e.alertTypeId == 3){
             section.appendChild(criarElemento3(e));
+          } else if(e.alertTypeId == 2){
+            section.appendChild(criarElemento2(e));
           }
       }
       )

@@ -92,6 +92,9 @@ const elementoHeader1 = () => {
 const conteudo = ` <li class="nav-item">
 <a class="nav-link" href="./dados/profile.html">Perfil</a>
 </li>
+<li class="nav-item">
+<a class="nav-link" href="./owner/register/user.html">Cadastrar Usuário</a>
+</li>
 <li class="nav-item px-3">
 <a class="nav-link" href="../index.html" onclick="sessionStorage.clear()">Sair</a>
 </li>`

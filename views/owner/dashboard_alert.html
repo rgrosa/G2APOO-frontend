@@ -71,9 +71,44 @@
       }
     }
     
-    function aprovarUsuari(alertId, msg){
+    function aprovarUsuario(alertId, msg){
+      if (confirm("Deseja aprovar o novo usuário?")) {
 
+        const makeJson ={
+          alertId: alertId,
+          userId: msg.split("(")[2].replace(/[&\/\\#^+()$~%.'":*?<>{}!@]/g, '')
+        };
+        makeRequest2(makeJson);
+      }
     }
+
+    async function makeRequest2(json){
+
+    const token = sessionStorage.getItem("jwtToken");
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(json),
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/service/user-update/status", requestOptions)
+      .then(resposta => {
+        if (resposta.ok) {
+          window.alert("Usuário Liberado");
+          document.getElementById("searchBtn").click();
+        }else{
+          window.alert("Error");
+        }
+      })
+      .then(json => {
+        return json
+      });
+}
 
     async function makeRequest(json){
 

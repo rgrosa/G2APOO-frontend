@@ -39,7 +39,7 @@ const criarElemento1 = (e) => {
               <div class="card-body" style="border-style:solid;border-width:1px">
                 <h5 class="card-title">Mensagem: ${e.alertMessage} </h5>
                 <p class="card-text">Usuário ${e.userRealName} realizou a solicitação em ${formatDate} ${email}</p>
-                <button type="button" onClick="apagarAlerta(${e.alertId})" class="btn btn-warning">Clique aqui para ignorar a solicitação</button><button style="margin-left: 5px;" type="button" onClick="aprovarUsuario(${e.alertId}, ${e.alertMessage})" class="btn btn-warning">Clique aqui para aprovar o usuário</button>
+                <button type="button" onClick="apagarAlerta(${e.alertId})" class="btn btn-warning">Clique aqui para ignorar a solicitação</button><button style="margin-left: 5px;" type="button" onClick="aprovarUsuario(${e.alertId}, '${e.alertMessage}')" class="btn btn-warning">Clique aqui para aprovar o usuário</button>
               </div>
             </div>
               </article>

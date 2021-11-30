@@ -85,7 +85,7 @@ const criarElemento1 = (e) => {
       }
       )
     }else {
-      section.textContent = "Sem alertas no momento :)";
+      section.textContent = "Sem alertas no momento  &#128512;";
     }
   }
 

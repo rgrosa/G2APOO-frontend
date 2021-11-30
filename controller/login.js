@@ -17,7 +17,7 @@ document.getElementById('olho').addEventListener('mousemove', function () {
 formulario.addEventListener('submit', async (evento) => {
   evento.preventDefault()
   try {
-    const userTypeIdUser = 1;//default user
+
     const usuario = evento.target.querySelector('#usuario').value
     const senha = evento.target.querySelector('#senha').value
 
@@ -37,3 +37,20 @@ formulario.addEventListener('submit', async (evento) => {
     window.alert("Login Inválido");
   }
 })
+
+document.getElementById('btn-login').onclick = async () => {
+
+
+    const usuario = 'temp';
+    const senha =  '123';
+
+    const token = await autenticacaoService.autenticarUsuario(usuario, senha)
+    const userTypeId = token.additionalInfo.userTypeId;
+    const userId = token.additionalInfo.userId;
+    sessionStorage.setItem('jwtToken', token.additionalInfo.jwtToken);
+    sessionStorage.setItem('userTypeId', userTypeId);
+    sessionStorage.setItem('userId', userId);
+
+    window.location.href = `views/home.html`
+
+};

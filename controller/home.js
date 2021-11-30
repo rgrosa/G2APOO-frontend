@@ -1,6 +1,7 @@
 import { propertyService } from '../service/property_service.js';
 
 const userType = sessionStorage.getItem("userTypeId");
+const userId = sessionStorage.getItem("userId");
 const token = sessionStorage.getItem("jwtToken");
 
 const criarElemento = (e) => {
@@ -17,6 +18,7 @@ const criarElemento = (e) => {
   const divImg4= (e.picture4x64?makeDivPic(e.picture4x64):"\n");
   const divImg5= (e.picture5x64?makeDivPic(e.picture5x64):"\n");
   const formatDate = moment(new Date(e.updatedAt)).format('DD/MM/YY HH:mm:ss');
+  const requestAlert = (userId != 0?makeRequestBtn(e.propertyId):"<p>Faça login para poder realizar uma solicitação &#128512;</p>");
   const conteudo = `
             <article class="col" id=${e.propertyId}>
                 <div class="card">
@@ -74,7 +76,7 @@ const criarElemento = (e) => {
                       </div>
                       <div class="modal-body">
                       <div>
-                        <button type="button" style="margin-top: 2px;" id="btn-alert" onclick="sendAlert(${e.propertyId})" class="btn btn-primary">Solicitar Proposta</button>
+                        ${requestAlert}
                       </div>
                       <div>
                       ${editBtn}
@@ -120,14 +122,30 @@ const conteudo = ` <li class="nav-item">
 headerProperty.innerHTML = conteudo;
 }
 
+const elementoHeader3= () => {
+  const conteudo = ` 
+  <li class="nav-item">
+  <a class="nav-link" href="./owner/register/user.html">Cadastrar Usuário</a>
+  </li>
+  <li class="nav-item px-3">
+  <a class="nav-link" href="../index.html" onclick="sessionStorage.clear()">Sair</a>
+  </li>`
+  headerProperty.innerHTML = conteudo;
+  }
+
 const section = document.querySelector('[data-main-property]');
 const headerProperty = document.querySelector('[header-property]');
 
 const render2= async() =>{
-  if(userType == 2){
-     elementoHeader2();
+
+  if(userId == 0){
+    elementoHeader3();
   }else{
-     elementoHeader1();
+    if(userType == 2){
+      elementoHeader2();
+    }else{
+      elementoHeader1();
+    }
   }
 }
 
@@ -166,6 +184,10 @@ function caseStatus(status){
     case 3:
       return "Livre";
   }   
+}
+
+function makeRequestBtn(propertyId){
+return `<button type="button" style="margin-top: 2px;" id="btn-alert" onclick="sendAlert(`+propertyId+`)" class="btn btn-primary">Solicitar Proposta</button>`;
 }
 
 function makePromo(promoPrice, price){

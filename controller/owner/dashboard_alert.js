@@ -6,7 +6,7 @@ const token = sessionStorage.getItem("jwtToken");
 
 const criarElemento1 = (e) => {
     const div = document.createElement('div')
-    const email =  e.emailAddress != null? makeEmailTag(e.emailAddress):"";
+    const email =  e.emailContact != null? makeEmailTag(e.emailContact):"";
     const formatDate = moment(new Date(e.lastUpdate)).format('DD/MM/YY HH:mm:ss');
     const conteudo = `
               <article class="col" id=${e.alertId}>
@@ -28,7 +28,7 @@ const criarElemento1 = (e) => {
 
   const criarElemento2 = (e) => {
     const div = document.createElement('div')
-    const email =  e.emailAddress != null? makeEmailTag(e.emailAddress):"";
+    const email =  e.emailContact != null? makeEmailTag(e.emailContact):"";
     const formatDate = moment(new Date(e.lastUpdate)).format('DD/MM/YY HH:mm:ss');
     const conteudo = `
               <article class="col" id=${e.alertId}>
@@ -90,7 +90,7 @@ const criarElemento1 = (e) => {
   }
 
   function makeEmailTag(email){
-    return ',entre em contato por email clicando <a href="mailto:'+email+'"> aqui</a>'
+    return 'entre em contato pelo email <a href="mailto:'+email+'"> '+email+'</a>'
   }
 
   document.getElementById('searchBtn').onclick = async () => {
